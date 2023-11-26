@@ -3,3 +3,10 @@
 body{
     font-family: 'Inter', sans-serif;
 }
+
+header{
+    z-index: 10001 !important;
+}
+.heartStar{
+    border-radius: 0px 28px 0px 28px;
+}
