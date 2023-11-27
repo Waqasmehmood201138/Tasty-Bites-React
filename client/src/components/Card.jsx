@@ -12,7 +12,8 @@ export default function Card({ item }) {
 
     return (
         <>
-            <div className="card w-96 bg-base-100 shadow-xl relative">
+         
+            <div className="card shadow-xl relative mr-5 md:my-5">
                 <div className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-green ${isHeartFilled ? "text-rose-500" : "text-white"}`}
                 onClick={handleHeartClick}
                 >
@@ -36,7 +37,7 @@ export default function Card({ item }) {
                     </div>
                 </div>
             </div>
-
+            
         </>
     )
 }
