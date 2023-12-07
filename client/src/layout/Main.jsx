@@ -7,9 +7,11 @@ import Footer from '../components/Footer'
 export default function Main() {
   return (
     <>
-    <Navbar/>
-    <Outlet/>
-    <Footer />
+      <Navbar />
+      <div className='min-h-screen'>
+        <Outlet />
+      </div>
+      <Footer />
     </>
   )
 }
