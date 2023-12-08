@@ -1,6 +1,8 @@
 import { React, useEffect, useState } from 'react'
 import logo from '/logo.png'
-import { BiPhoneCall } from "react-icons/bi";
+// import { BiPhoneCall } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa";
+import Modal from './Modal';
 
 export default function Navbar() {
   const [isSticky, setSticky] = useState(false)
@@ -21,7 +23,7 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll)
 
     return () => {
-      window.removeEventListener("scroll" , handleScroll)
+      window.removeEventListener("scroll", handleScroll)
     }
 
   }, [])
@@ -57,7 +59,7 @@ export default function Navbar() {
   return (
     <>
       <header className='max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out'>
-        <div className={`navbar xl:px-24 ${ isSticky ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}>
+        <div className={`navbar xl:px-24 ${isSticky ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}>
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -85,15 +87,22 @@ export default function Navbar() {
 
             {/* Cart button */}
 
-            <label tabIndex={0} className="btn btn-ghost btn-circle mr-3 hidden lg:flex lg:flex items-center justify-center">
+            <label tabIndex={0} className="btn btn-ghost btn-circle mr-3 hidden  lg:flex items-center justify-center">
               <div className="indicator">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                 <span className="badge badge-sm indicator-item">8</span>
               </div>
             </label>
 
-            {/* Call Button */}
-            <a className="btn bg-green rounded-full px-6 text-white flex items-center gap-2"><BiPhoneCall /> Contact</a>
+            {/* login btn */}
+            <button
+              onClick={() => document.getElementById('my_modal_5').showModal()}
+              className="btn bg-green rounded-full px-6 text-white flex items-center gap-2">
+              <FaRegUser />
+              Login</button>
+
+            <Modal />
+
           </div>
         </div>
       </header>
