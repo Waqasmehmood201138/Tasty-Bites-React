@@ -56,6 +56,12 @@ export default function Modal() {
                             </div>
 
                             <p className='text-center my-2'>Donot have an account? <Link to="/signup" className='underline text-red ml-1'>Signup Now</Link></p>
+                            {/* Cross button */}
+                            <button
+                                htmlFor="my_modal_5"
+                                onClick={() => document.getElementById('my_modal_5').close()}
+                                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                            >✕</button>
                         </form>
 
                         {/* Social sign in button */}
