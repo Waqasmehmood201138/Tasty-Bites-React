@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
+import { AuthContext } from '../contexts/AuthProvider'
 
 export default function Modal() {
 
@@ -11,7 +12,23 @@ export default function Modal() {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const { signUpWithGmail, login} = useContext(AuthContext);
+
+    const onSubmit = (data) => {
+
+        const email = data.Email;
+        const password = data.Password;
+
+        console.log(email, password)
+    }
+
+    // google signin
+    const handleLogin = () => {
+        signUpWithGmail().then((result) => {
+            const user = result.user;
+            alert("Login Sucessfull!")
+        }).catch((error) => console.log(error))
+    }
 
     return (
         <>
@@ -66,7 +83,7 @@ export default function Modal() {
 
                         {/* Social sign in button */}
                         <div className='text-center space-x-3 mb-3'>
-                            <button className='btn btn-circle hover:bg-green hover:text-white'>
+                            <button className='btn btn-circle hover:bg-green hover:text-white' onClick={handleLogin}>
                                 <FaGoogle />
                             </button>
                             <button className='btn btn-circle hover:bg-green hover:text-white'>
