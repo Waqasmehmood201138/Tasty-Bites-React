@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import Modal from './Modal'
+import { AuthContext } from '../contexts/AuthProvider'
 
 export const Signup = () => {
 
@@ -12,7 +13,24 @@ export const Signup = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const {createUser, login} = useContext(AuthContext);
+
+    const onSubmit = (data) => {
+        
+        const email = data.Email;
+        const password = data.Password;
+        createUser(email, password).then((result) => {
+            // Signed up 
+            const user = result.user;
+            alert("Account Created Successfully!")
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.error('Error creating user:', errorCode, errorMessage);
+            // Handle the error, display relevant message to the user, or take necessary action.
+        });
+    }
 
     return (
         <>

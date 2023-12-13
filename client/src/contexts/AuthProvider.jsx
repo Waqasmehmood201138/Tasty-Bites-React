@@ -1,5 +1,5 @@
-import React, { createContext, useState } from 'react'
-import { GoogleAuthProvider, getAuth, signInWithPopup, updateProfile } from "firebase/auth";
+import React, { createContext, useState, useEffect } from 'react'
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import app from '../firebase/firebase.config'
 
 export const AuthContext = createContext();
@@ -18,12 +18,12 @@ const AuthProvider = ({ children }) => {
 
     // Signup with gmail
     const signUpWithGmail = () => {
-      return  signInWithPopup(auth, googleProvider)
+        return signInWithPopup(auth, googleProvider)
     }
 
     // login using email and password
     const login = (email, password) => {
-       return signInWithEmailAndPassword(auth, email, password)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     // logout
@@ -32,11 +32,29 @@ const AuthProvider = ({ children }) => {
     }
 
     // update profile
-    const updateUserProfile = ({name, photoURL}) => {
-      return  updateProfile(auth.currentUser, {
+    const updateUserProfile = ({ name, photoURL }) => {
+        return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photoURL
-          })
+        })
     }
+
+    // check signed-in user
+    useEffect(() => {
+       const unsubscribe =  onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+                setLoading(false);
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
+
+        return () => {
+            return unsubscribe();
+        }
+    }, [])
+
 
     const authInfo = {
         user,
