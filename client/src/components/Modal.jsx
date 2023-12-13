@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
@@ -13,13 +13,21 @@ export default function Modal() {
     } = useForm()
 
     const { signUpWithGmail, login} = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState("")
 
     const onSubmit = (data) => {
 
         const email = data.Email;
         const password = data.Password;
 
-        console.log(email, password)
+        // console.log(email, password)
+        login(email, password).then((result) => {
+            const user = result.user;
+            alert("Login Successful!")
+        }).catch((error) => {
+            const errorMessage = error.message;
+            setErrorMessage("Provide a correct email and password!")
+        })
     }
 
     // google signin
@@ -66,9 +74,12 @@ export default function Modal() {
                             </div>
 
                             {/* error text */}
+                            {
+                                errorMessage ? <p className='text-red text-xs italic'>{errorMessage}</p> : ""
+                            }
 
                             {/* submit button */}
-                            <div className="form-control mt-6">
+                            <div className="form-control mt-4">
                                 <input type='submit' value='Login' className="btn bg-green text-white" />
                             </div>
 
