@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthProvider'
 
 export default function Profile({ user }) {
+
+    const { logOut } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        logOut().then(() => {
+            // sign-out successfull
+            alert("Logout Successfull!!")
+        }).catch(() => {
+            // error happened
+        })
+    }
+
     return (
         <>
             <div>
@@ -23,7 +36,7 @@ export default function Profile({ user }) {
                             <li><a>Profile</a></li>
                             <li><a>Orders</a></li>
                             <li><a>Setting</a></li>
-                            <li><a>Logout</a></li>
+                            <li><a onClick={handleLogout}>Logout</a></li>
                         </ul>
                     </div>
                 </div>
