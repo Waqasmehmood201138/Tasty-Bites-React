@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import Modal from './Modal'
 import { AuthContext } from '../contexts/AuthProvider'
@@ -13,23 +13,28 @@ export const Signup = () => {
         formState: { errors },
     } = useForm()
 
-    const {createUser, login} = useContext(AuthContext);
+    const { createUser, login } = useContext(AuthContext);
+    // redirecting to homepage or specific page
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
 
     const onSubmit = (data) => {
-        
+
         const email = data.Email;
         const password = data.Password;
         createUser(email, password).then((result) => {
             // Signed up 
             const user = result.user;
             alert("Account Created Successfully!")
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('Error creating user:', errorCode, errorMessage);
-            // Handle the error, display relevant message to the user, or take necessary action.
-        });
+            navigate(from, { replace: true })
+        })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error('Error creating user:', errorCode, errorMessage);
+                // Handle the error, display relevant message to the user, or take necessary action.
+            });
     }
 
     return (
