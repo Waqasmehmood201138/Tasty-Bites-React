@@ -100,7 +100,7 @@ export default function Modal() {
                         </form>
 
                         {/* Social sign in button */}
-                        <div className='text-center space-x-3 mb-3'>
+                        <div className='text-center space-x-3 mb-2'>
                             <button className='btn btn-circle hover:bg-green hover:text-white' onClick={handleLogin}>
                                 <FaGoogle />
                             </button>
