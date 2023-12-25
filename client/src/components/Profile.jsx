@@ -8,7 +8,7 @@ export default function Profile({ user }) {
     const handleLogout = () => {
         logOut().then(() => {
             // sign-out successfull
-            alert("Logout Successfull!!")
+            // alert("Logout Successfull!!")
         }).catch(() => {
             // error happened
         })
