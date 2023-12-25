@@ -4,11 +4,12 @@ import logo from '/logo.png'
 import { FaRegUser } from "react-icons/fa";
 import Modal from './Modal';
 import { AuthContext } from '../contexts/AuthProvider';
+import Profile from './Profile';
 
 export default function Navbar() {
   const [isSticky, setSticky] = useState(false)
 
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   console.log(user)
 
   useEffect(() => {
@@ -99,11 +100,11 @@ export default function Navbar() {
             </label>
 
             {/* login btn */}
-            <button
+            {user ? <Profile user={user}/> : <button
               onClick={() => document.getElementById('my_modal_5').showModal()}
               className="btn bg-green rounded-full px-6 text-white flex items-center gap-2">
               <FaRegUser />
-              Login</button>
+              Login</button>}
 
             <Modal />
 

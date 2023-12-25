@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { FaFacebookF, FaGithub, FaGoogle } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 import { AuthContext } from '../contexts/AuthProvider'
 
@@ -12,8 +12,13 @@ export default function Modal() {
         formState: { errors },
     } = useForm()
 
-    const { signUpWithGmail, login} = useContext(AuthContext);
+    const { signUpWithGmail, login } = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState("")
+
+    // redirecting to homepage or specific page
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
 
     const onSubmit = (data) => {
 
@@ -24,6 +29,8 @@ export default function Modal() {
         login(email, password).then((result) => {
             const user = result.user;
             alert("Login Successful!")
+            document.getElementById('my_modal_5').close()
+            navigate(from, { replace: true })
         }).catch((error) => {
             const errorMessage = error.message;
             setErrorMessage("Provide a correct email and password!")
@@ -93,7 +100,7 @@ export default function Modal() {
                         </form>
 
                         {/* Social sign in button */}
-                        <div className='text-center space-x-3 mb-3'>
+                        <div className='text-center space-x-3 mb-2'>
                             <button className='btn btn-circle hover:bg-green hover:text-white' onClick={handleLogin}>
                                 <FaGoogle />
                             </button>

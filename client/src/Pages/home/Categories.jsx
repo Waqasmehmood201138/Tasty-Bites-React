@@ -21,7 +21,7 @@ export default function Categories() {
                 <div className='flex flex-col sm:flex-row flex-wrap gap-8 justify-around items-center mt-12 '>
                     {
                         categoryItems.map((item, index) => {
-                            return <div key={index} className='shadow-lg rounded-md bg-white py-6 px-5 w-72 mx-auto text-center cursor-pointer hover:-translate-y-4 transition-all duration-300'>
+                            return <div key={index} className='shadow-lg rounded-md bg-white py-6 px-5 w-60 mx-auto text-center cursor-pointer hover:-translate-y-4 transition-all duration-300'>
                                 <div className='flex w-full mx-auto items-center justify-center'>
                                     <img src={item.image} alt="" className='bg-[#C1F1C6] p-5 rounded-full w-28 h-28' />
                                 </div>
