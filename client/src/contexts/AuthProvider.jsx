@@ -13,11 +13,13 @@ const AuthProvider = ({ children }) => {
 
     // create account
     const createUser = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
     }
 
     // Signup with gmail
     const signUpWithGmail = () => {
+        setLoading(true);
         return signInWithPopup(auth, googleProvider)
     }
 
@@ -28,29 +30,25 @@ const AuthProvider = ({ children }) => {
 
     // logout
     const logOut = () => {
-        signOut(auth);
+       return signOut(auth);
     }
 
     // update profile
-    const updateUserProfile = ({ name, photoURL }) => {
+    const updateUserProfile = (name, photoURL ) => {
         return updateProfile(auth.currentUser, {
             displayName: name, photoURL: photoURL
         })
     }
 
     // check signed-in user
-    useEffect(() => {
-       const unsubscribe =  onAuthStateChanged(auth, (currentUser) => {
-            if (currentUser) {
-                setUser(currentUser);
-                setLoading(false);
-            } else {
-                // User is signed out
-                // ...
-            }
+    useEffect( () =>{
+        const unsubscribe = onAuthStateChanged(auth, currentUser =>{
+            // console.log(currentUser);
+            setUser(currentUser);
+            setLoading(false);
         });
-
-        return () => {
+  
+        return () =>{
             return unsubscribe();
         }
     }, [])
