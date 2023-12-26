@@ -26,10 +26,13 @@ export default function UpdateProfile() {
         updateUserProfile(name, photoURL).then(() => {
            // profile updated
            navigate(from, { replace: true })
+           console.log("profile updated...")
            // ....
-        }).catch(() => {
+        }).catch((e) => {
             // error occured
             // ....
+
+            console.log(e)
         })
     }
 
