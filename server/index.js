@@ -5,7 +5,7 @@ const port = process.env.PORT || 3001
 
 const app = express()
 
-
+require('dotenv').config()
 
 
 //  middleware
@@ -26,7 +26,7 @@ app.listen(port, () => {
 // mongodb configuration
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-mongoose.connect('mongodb+srv://wk288516:tastyBitesReact@tasty-bites-react.6vr6l1y.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@tasty-bites-react.6vr6l1y.mongodb.net/?retryWrites=true&w=majority`);
 
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 mongoose.connection.on('connected', function () {//connected
