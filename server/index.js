@@ -12,7 +12,9 @@ require('dotenv').config()
 app.use(cors())
 app.use(express.json())
 
-
+//  import routes here
+const menuRoutes = require('./api/routes/menuRoutes')
+app.use('/menu', menuRoutes)
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
