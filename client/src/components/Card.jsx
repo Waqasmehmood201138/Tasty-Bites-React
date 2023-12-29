@@ -1,23 +1,36 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {FaHeart} from 'react-icons/fa'
+import { FaHeart } from 'react-icons/fa'
+import { AuthContext } from '../contexts/AuthProvider';
 
 export default function Card({ item }) {
+    const {name, image, price, recipe, _id} = item;
 
-    const [isHeartFilled , setIsHeartFilled] = useState(false);
+    const [isHeartFilled, setIsHeartFilled] = useState(false);
+    const {user} = useContext(AuthContext)
+    // console.log(user)
 
     const handleHeartClick = () => {
         setIsHeartFilled(!isHeartFilled)
     }
 
+    // add to cart function
+    const handleAddtoCart = (item) => {
+        // console.log("btn clicked", item)
+        if(user && user?.email){
+            const cartItem = {menuItemId: _id, name, quantity: 1, image, price, email: user.email}
+            console.log(cartItem)
+        }
+    }
+
     return (
         <>
-         
+
             <div to={`/menu/${item._id}`} className="card shadow-xl relative mr-5 md:my-5">
                 <div className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-green ${isHeartFilled ? "text-rose-500" : "text-white"}`}
-                onClick={handleHeartClick}
+                    onClick={handleHeartClick}
                 >
-                    <FaHeart className='h-5 w-5 cursor-pointer'/>
+                    <FaHeart className='h-5 w-5 cursor-pointer' />
                 </div>
                 <Link to={`/menu/${item._id}`}>
                     <figure>
@@ -29,15 +42,15 @@ export default function Card({ item }) {
                     </figure>
                 </Link>
                 <div className="card-body">
-                   <Link to={`/menu/${item._id}`}><h2 className="card-title">{item.name}</h2></Link> 
+                    <Link to={`/menu/${item._id}`}><h2 className="card-title">{item.name}</h2></Link>
                     <p>Description of the item</p>
                     <div className="card-actions justify-between items-center mt-2">
-                        <h5 className='font-semibold'><span className='text-sm text-red'>$</span>{item.price}</h5>
-                        <button className="btn bg-green text-white">Buy Now</button>
+                        <h5 className='font-semibold'><span className='text-sm text-red'>$ </span>{item.price}</h5>
+                        <button className="btn bg-green text-white" onClick={handleAddtoCart(item)}>Add to Cart</button>
                     </div>
                 </div>
             </div>
-            
+
         </>
     )
 }
